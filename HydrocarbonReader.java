@@ -1,14 +1,24 @@
 // I am the sole author of the work in this repository
 
+/**
+* This class parses a hydrocarbon in the form a string and stores whether the compound
+* contains oxygen atoms
+*/
 public class HydrocarbonReader {
   private String compound;
   private boolean hasOxygens;
 
+  /**
+  * @param String representing the hydrocarbon
+  */
   public HydrocarbonReader(String hydrocarbon) {
     compound = hydrocarbon.toLowerCase();
     hasOxygens = compound.contains("o");
   }
 
+  /**
+  * @return int number of carbons in the molecule
+  */
   public int getCarbons() {
     int c = compound.indexOf("c");
     int h = compound.indexOf("h");
@@ -19,6 +29,9 @@ public class HydrocarbonReader {
     }
   }
 
+  /**
+  * @return int number of hydrogens in the molecule
+  */
   public int getHydrogens() {
     int h = compound.indexOf("h");
     if (hasOxygens) {
@@ -34,6 +47,9 @@ public class HydrocarbonReader {
     }
   }
 
+  /*
+  * @return int the number of oxygens in the molecule
+  */
   public int getOxygens() {
     if (hasOxygens) {
       int o = compound.indexOf("o");
@@ -51,10 +67,9 @@ public class HydrocarbonReader {
   }
 
   public static void main(String[] args) {
-    // assert args.length == 1
-    HydrocarbonReader hc = new HydrocarbonReader(args[0]);
-    System.out.println(hc.getCarbons() + " " + hc.getHydrogens() + " " + hc.getOxygens());
-    System.out.println(hc);
+    // HydrocarbonReader hc = new HydrocarbonReader(args[0]);
+    // System.out.println(hc.getCarbons() + " " + hc.getHydrogens() + " " + hc.getOxygens());
+    // System.out.println(hc);
   }
 
 }
