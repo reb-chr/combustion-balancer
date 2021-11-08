@@ -27,11 +27,10 @@ public class EquationBalancer {
   /**
   * @param HydrocarbonReader a compound
   * Prints a message and exits program if the compound is not a possible hydrocarbon,
-  * i.e. if the number of hydrogens and oxygens exceeds 2n+2, where n is the number of carbons
+  * i.e. if the number of hydrogens exceeds 2n+2, where n is the number of carbons
   */
   private void ensureCompound(HydrocarbonReader compound) {
-    int maxOtherAtoms = (compound.getCarbons() * 2) + 2;
-    if (compound.getHydrogens() + compound.getOxygens() > maxOtherAtoms) {
+    if (compound.getHydrogens() > (compound.getCarbons() * 2) + 2) {
       System.out.println("Please enter a valid hydrocarbon");
       System.exit(0);
     }
@@ -58,24 +57,7 @@ public class EquationBalancer {
       numH2O = compound.getHydrogens() * 2;
       numO2 = numCO2 + (numH2O / 2);
     }
-    balanceOxygens();
     reduce();
-  }
-
-  /**
-  * Balances the number of oxygens in the compound
-  */
-  private void balanceOxygens() {
-    if (compound.getOxygens() != 0) {
-      if (compound.getOxygens() % 2 == 0) {
-        numO2 = numO2 - (numCompound * compound.getOxygens() / 2);
-      } else {
-        numCompound *= 2;
-        numCO2 *= 2;
-        numH2O *= 2;
-        numO2 = (numO2 * 2) - (numCompound * compound.getOxygens() / 2);
-      }
-    }
   }
 
   /**
@@ -89,7 +71,7 @@ public class EquationBalancer {
       numO2 /= 2;
     }
   }
-  
+
   public String toString() {
     return numCompound + " " + compound.toString() + " + " + numO2 + " O2 -> "
       + numCO2 + " CO2 + " + numH2O + " H2O";
@@ -97,7 +79,7 @@ public class EquationBalancer {
 
   public static void main(String[] args) {
     if (args.length != 1) {
-      System.out.println("Usage: java EquationBalancer CxHyOz");
+      System.out.println("Usage: java EquationBalancer CxHy");
       System.exit(0);
     } else {
       EquationBalancer equation = new EquationBalancer(args[0]);
